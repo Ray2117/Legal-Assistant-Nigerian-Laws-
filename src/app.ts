@@ -14,18 +14,18 @@ const app = express();
 
 /* ── CORS — manual middleware, works reliably with Express 5 ── */
 const ALLOWED_ORIGINS = [
+  'https://legal-assistant-three-xi.vercel.app',
   'http://localhost:3000',
   'http://127.0.0.1:3000',
-  'https://legal-assistant-three-xi.vercel.app/',
   process.env.CLIENT_URL,
 ].filter(Boolean) as string[];
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   const origin = req.headers.origin as string | undefined;
 
-  if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+  /* if (!origin || ALLOWED_ORIGINS.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin || '*');
-  }
+  } */
 
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');

@@ -16,6 +16,7 @@ const app = express();
 const ALLOWED_ORIGINS = [
   'http://localhost:3000',
   'http://127.0.0.1:3000',
+  'https://legal-assistant-three-xi.vercel.app/',
   process.env.CLIENT_URL,
 ].filter(Boolean) as string[];
 

@@ -12,31 +12,13 @@ import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
 
-/* ── CORS — manual middleware, works reliably with Express 5 ── */
-const ALLOWED_ORIGINS = [
-  'https://legal-assistant-three-xi.vercel.app',
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-  process.env.CLIENT_URL,
-].filter(Boolean) as string[];
-
+/* ── CORS — all origins allowed ── */
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const origin = req.headers.origin as string | undefined;
-
-  /* if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin || '*');
-  } */
-
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept');
-  res.setHeader('Access-Control-Max-Age', '86400'); // cache preflight 24h
 
-  // End OPTIONS preflight immediately — no further middleware needed
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
+  if (req.method === 'OPTIONS') { res.status(200).end(); return; }
 
   next();
 });
